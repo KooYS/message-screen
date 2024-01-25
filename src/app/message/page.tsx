@@ -4,7 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const send = () => {
-    const message = document.getElementById('message').value;
+    const message = (document.getElementById('message') as HTMLInputElement)
+      .value;
 
     if (message === '' || message === undefined) {
       toast.error('Please enter your message');
