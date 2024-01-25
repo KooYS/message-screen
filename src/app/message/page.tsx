@@ -1,8 +1,11 @@
 'use client';
 import Image from 'next/image';
+import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [delay, setDelay] = React.useState(false);
   const send = () => {
     const message = (document.getElementById('message') as HTMLInputElement)
       .value;
@@ -11,26 +14,49 @@ export default function Home() {
       toast.error('Please enter your message');
       return;
     }
-    fetch('https://ujzt7hz2i6.execute-api.ap-northeast-2.amazonaws.com/v0', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message }),
-    })
-      .then((res) => {
-        console.log(res);
-        if (res.ok) toast.success('Successfully created!');
-        else {
-          toast.error('Plz retry!');
-        }
+    if (!delay) {
+      setDelay(true);
+
+      setIsLoading(true);
+      fetch('https://ujzt7hz2i6.execute-api.ap-northeast-2.amazonaws.com/v0', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
       })
-      .catch(() => false);
+        .then((res) => {
+          setIsLoading(false);
+          console.log(res);
+          if (res.ok) {
+            toast.success('Successfully created!');
+            setTimeout(() => {
+              setDelay(false);
+            }, 2000);
+          } else {
+            toast.error('Plz retry!');
+          }
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
+    } else {
+      if (message === '' || message === undefined) {
+        toast.error('Plz waiting');
+        return;
+      }
+    }
   };
 
   return (
     <>
       <Toaster />
+      {isLoading && (
+        <div
+          id="overlay"
+          className="h-full w-full fixed top-0 left-0 bg-black opacity-50"
+        ></div>
+      )}
       <div className="flex items-center justify-between p-4 border-t border-gray-200 h-full">
         <input
           placeholder="메세지를 입력하세요..."

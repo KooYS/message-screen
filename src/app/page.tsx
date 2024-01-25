@@ -19,7 +19,7 @@ export default function Home() {
     if (element.msRequestFullscreen) return element.msRequestFullscreen();
   };
   return (
-    <main className="bg-stone-200 py-9">
+    <main className="py-9">
       <button
         onClick={toggle}
         style={{
