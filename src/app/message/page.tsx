@@ -1,9 +1,10 @@
 'use client';
-import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
+  const router = usePathname();
   const [isLoading, setIsLoading] = React.useState(false);
   const [delay, setDelay] = React.useState(false);
   const send = () => {

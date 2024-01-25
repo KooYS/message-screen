@@ -5,6 +5,21 @@ interface Props {
   message: string;
 }
 
+const NewlineToBreak = ({ text }: { text: string }) => {
+  const textWithBreaks = text.split('\n').map((line, index, array) =>
+    index === array.length - 1 ? (
+      line
+    ) : (
+      <React.Fragment key={`${text}-${line}-${index}`}>
+        {line}
+        <br />
+      </React.Fragment>
+    )
+  );
+
+  return <>{textWithBreaks}</>;
+};
+
 const Card: React.FC<Props> = ({ idx, message }) => {
   const msgRef = React.useRef<HTMLParagraphElement>(null);
 
@@ -21,18 +36,24 @@ const Card: React.FC<Props> = ({ idx, message }) => {
     const one = width > height ? width : height;
 
     const minSize =
-      120 + one < window.innerWidth / 6 ? window.innerWidth / 6 : 120 + one;
+      200 + one < window.innerWidth / 6 ? window.innerWidth / 6 : 200 + one;
+
+    console.log(msgRef.current, width, height, minSize);
     setSize({
       width: minSize,
       height: minSize,
     });
   }, [msgRef.current]);
+
+  React.useEffect(() => {
+    console.log(msgRef.current, size);
+  }, [size]);
   return (
     <>
       <div
         className="mx-auto"
         style={{
-          background: `url('./card/${idx}.png')`,
+          background: `url('./card/${(idx % 8) + 1}.png')`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           width: size.width + 'px',
@@ -50,7 +71,7 @@ const Card: React.FC<Props> = ({ idx, message }) => {
             maxWidth: 200,
           }}
         >
-          {message}
+          <NewlineToBreak text={message} />
         </p>
       </div>
     </>
