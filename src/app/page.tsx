@@ -19,7 +19,7 @@ export default function Home() {
     if (element.msRequestFullscreen) return element.msRequestFullscreen();
   };
   return (
-    <main className="py-9">
+    <main>
       <button
         onClick={toggle}
         style={{
@@ -30,17 +30,17 @@ export default function Home() {
           height: 50,
         }}
       ></button>
-      <div className="flex justify-between w-full h-screen">
+      <div className="flex justify-between  w-full h-screen px-20">
         {!isLoading && data && (
           <>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 justify-center">
               {data.body.slice(0, 3).map((el: string, index: number) => {
                 return (
                   <Card key={`${el}_${index}`} idx={index + 1} message={el} />
                 );
               })}
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 justify-center">
               {data.body.slice(3, 6).map((el: string, index: number) => {
                 return (
                   <Card key={`${el}_${index}`} idx={index + 4} message={el} />

@@ -4,6 +4,7 @@ interface Props {
   idx: number;
   message: string;
 }
+
 const Card: React.FC<Props> = ({ idx, message }) => {
   const msgRef = React.useRef<HTMLParagraphElement>(null);
 
@@ -17,14 +18,14 @@ const Card: React.FC<Props> = ({ idx, message }) => {
       width: 0,
     };
     setSize({
-      width: width + 70,
-      height: width + 70,
+      width: width + window.innerWidth / 20,
+      height: width + window.innerWidth / 20,
     });
   }, [msgRef]);
   return (
     <>
       <div
-        className="mx-auto "
+        className="mx-auto"
         style={{
           background: `url('./card/${idx}.png')`,
           backgroundSize: 'cover',
@@ -36,7 +37,10 @@ const Card: React.FC<Props> = ({ idx, message }) => {
           alignItems: 'center',
         }}
       >
-        <p ref={msgRef} className="text-gray-600 p-20 m-auto">
+        <p
+          ref={msgRef}
+          className="text-gray-600 fold:p-10 tablet:p-12 desktop:p-20 m-auto"
+        >
           {message}
         </p>
       </div>
