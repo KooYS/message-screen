@@ -30,20 +30,20 @@ export default function Home() {
           height: 50,
         }}
       ></button>
-      <div className="flex justify-between  w-full h-screen px-20">
+      <div className="flex justify-between  w-full  h-screen px-20">
         {!isLoading && data && (
           <>
-            <div className="flex flex-col space-y-4 justify-center">
-              {data.body.slice(0, 3).map((el: string, index: number) => {
+            <div className="grid grid-cols-4 grid-rows-3 gap-7 m-auto w-full h-full">
+              {data.body.slice(0, 5).map((el: string, index: number) => {
                 return (
                   <Card key={`${el}_${index}`} idx={index + 1} message={el} />
                 );
               })}
-            </div>
-            <div className="flex flex-col space-y-4 justify-center">
-              {data.body.slice(3, 6).map((el: string, index: number) => {
+              <div></div>
+              <div></div>
+              {data.body.slice(6, 11).map((el: string, index: number) => {
                 return (
-                  <Card key={`${el}_${index}`} idx={index + 4} message={el} />
+                  <Card key={`${el}_${index}`} idx={index + 5} message={el} />
                 );
               })}
             </div>
