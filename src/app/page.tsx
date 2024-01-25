@@ -30,13 +30,26 @@ export default function Home() {
           height: 50,
         }}
       ></button>
-      {!isLoading && data && (
-        <>
-          {data.body.map((el: string, index: number) => {
-            return <Card key={`${el}_${index}`} message={el} />;
-          })}
-        </>
-      )}
+      <div className="flex justify-between w-full h-screen">
+        {!isLoading && data && (
+          <>
+            <div className="flex flex-col space-y-4">
+              {data.body.slice(0, 3).map((el: string, index: number) => {
+                return (
+                  <Card key={`${el}_${index}`} idx={index + 1} message={el} />
+                );
+              })}
+            </div>
+            <div className="flex flex-col space-y-4">
+              {data.body.slice(3, 6).map((el: string, index: number) => {
+                return (
+                  <Card key={`${el}_${index}`} idx={index + 4} message={el} />
+                );
+              })}
+            </div>
+          </>
+        )}
+      </div>
     </main>
   );
 }
