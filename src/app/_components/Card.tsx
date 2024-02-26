@@ -103,7 +103,7 @@ const Card: React.FC<Props> = ({ idx, row }) => {
       >
         <p
           ref={msgRef}
-          className="text-gray-600 m-auto"
+          className="text-black m-auto font-bold text-2xl text-center"
           style={{
             maxWidth: 200,
             wordWrap: 'break-word',

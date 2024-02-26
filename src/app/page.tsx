@@ -40,7 +40,8 @@ export default function Home() {
         {!isLoading && data && (
           <>
             <div className="grid grid-cols-4 grid-rows-3 gap-7 m-auto w-full h-full">
-              {data.body.length > 0 &&
+              {data.body &&
+                data.body.length > 0 &&
                 data.body
                   .slice(0, 5)
                   .map(
