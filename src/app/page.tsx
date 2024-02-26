@@ -40,16 +40,19 @@ export default function Home() {
         {!isLoading && data && (
           <>
             <div className="grid grid-cols-4 grid-rows-3 gap-7 m-auto w-full h-full">
-              {data.body
-                .slice(0, 5)
-                .map(
-                  (
-                    el: { message: string; status: string; id: string },
-                    index: number
-                  ) => {
-                    return <Card key={`${el}_${index}`} idx={index} row={el} />;
-                  }
-                )}
+              {data.body.length > 0 &&
+                data.body
+                  .slice(0, 5)
+                  .map(
+                    (
+                      el: { message: string; status: string; id: string },
+                      index: number
+                    ) => {
+                      return (
+                        <Card key={`${el}_${index}`} idx={index} row={el} />
+                      );
+                    }
+                  )}
               <div></div>
               <div></div>
               {data.body
