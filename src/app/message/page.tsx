@@ -4,9 +4,11 @@ import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Home() {
+  const maxLength = 50;
   const router = usePathname();
   const [isLoading, setIsLoading] = React.useState(false);
   const [delay, setDelay] = React.useState(false);
+  const [value, setValue] = React.useState<string>('');
   const send = () => {
     const message = (document.getElementById('message') as HTMLInputElement)
       .value;
@@ -49,6 +51,26 @@ export default function Home() {
     }
   };
 
+  React.useEffect(() => {
+    const textarea = document.getElementById('textarea') as HTMLTextAreaElement;
+    if (textarea) {
+      textarea.addEventListener('input', function () {
+        const currentLength = this.value.length;
+
+        console.log(currentLength);
+
+        const textareaCount = document.getElementById('textarea_count');
+        if (textareaCount) {
+          textareaCount.innerText = `${currentLength} / ${maxLength}`;
+        }
+
+        if (currentLength >= maxLength) {
+          alert('글자수 제한에 도달했습니다.');
+        }
+      });
+    }
+  }, [router]);
+
   return (
     <>
       <Toaster />
@@ -61,8 +83,13 @@ export default function Home() {
       <div className="flex flex-col justify-center gap-3 p-4 border-t border-gray-200 h-full">
         <textarea
           rows={7}
+          maxLength={maxLength}
           placeholder="메세지를 입력하세요..."
           id="message"
+          value={value}
+          onChange={(e) => {
+            if (e.target.value.length <= maxLength) setValue(e.target.value);
+          }}
           className="p-2 border rounded-md focus:outline-none focus:border-blue-500"
           // onKeyDown={(e: React.KeyboardEvent) => {
           //   if (e.key === 'Enter') {
@@ -70,6 +97,9 @@ export default function Home() {
           //   }
           // }}
         />
+        <div id="textarea_count" className="text-right mt-2 text-sm text-white">
+          {value.length} / {maxLength}
+        </div>
         <button
           className="ml-4 px-4 py-2 bg-blue-500 text-white fold:text-xs fold:ml-2 mobile:ml-4 mobile:text-base rounded-md hover:bg-blue-600 focus:outline-none"
           onClick={() => {
