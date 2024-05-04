@@ -4,7 +4,10 @@ import React from 'react';
 import Card from './_components/Card';
 
 export default function Home() {
-  const fetcher = (url: string) => fetch(url).then((r) => r.json());
+  const fetcher = (url: string) =>
+    fetch(url)
+      .then((r) => r.json())
+      .catch((e) => console.log(e));
 
   const { data, error, isLoading } = useSWR(
     'https://ujzt7hz2i6.execute-api.ap-northeast-2.amazonaws.com/v0',
