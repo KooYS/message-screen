@@ -46,7 +46,7 @@ export default function Home() {
               {data.body &&
                 data.body.length > 0 &&
                 data.body
-                  .slice(0, 5)
+                  ?.slice(0, 5)
                   .map(
                     (
                       el: { message: string; status: string; id: string },
@@ -59,18 +59,20 @@ export default function Home() {
                   )}
               <div></div>
               <div></div>
-              {data.body
-                .slice(5, 10)
-                .map(
-                  (
-                    el: { message: string; status: string; id: string },
-                    index: number
-                  ) => {
-                    return (
-                      <Card key={`${el}_${index}`} idx={index + 5} row={el} />
-                    );
-                  }
-                )}
+              {data.body &&
+                data.body.length > 5 &&
+                data.body
+                  ?.slice(5, 10)
+                  .map(
+                    (
+                      el: { message: string; status: string; id: string },
+                      index: number
+                    ) => {
+                      return (
+                        <Card key={`${el}_${index}`} idx={index + 5} row={el} />
+                      );
+                    }
+                  )}
             </div>
           </>
         )}
